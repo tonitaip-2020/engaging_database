@@ -23,3 +23,4 @@ The setup with PostgreSQL creates the tables and generates the data.
 
 # Setup with other RDBMSs
 
+todo: database dump, inserts in a file
