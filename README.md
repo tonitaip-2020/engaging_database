@@ -24,3 +24,7 @@ The setup with PostgreSQL creates the tables and generates the data.
 # Setup with other RDBMSs
 
 TODO: refactor the pg_dump to DBMS agnostic statements.
+
+# Thanks
+
+Artist and song names: https://github.com/fivethirtyeight/data/tree/master/classic-rock
