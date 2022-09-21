@@ -1,11 +1,11 @@
 -- Tested in PostgreSQL 14.2
--- songs	500
+-- songs ~500
 -- albums	50
--- artists	10
+-- artists 10
 -- orders	450
--- order_lines	600
--- customers	45
--- AVG 275
+-- order_lines 600
+-- customers 45
+-- M = 275
 
 DROP TABLE IF EXISTS songs;
 DROP TABLE IF EXISTS albums;
@@ -115,11 +115,10 @@ TRUNCATE TABLE albums      RESTART IDENTITY CASCADE;
 TRUNCATE TABLE artists     RESTART IDENTITY CASCADE;
 TRUNCATE TABLE songs       RESTART IDENTITY CASCADE;
 
-
 -- Data for customers:
 WITH fnames AS (
   SELECT fname
-  FROM (VALUES 
+  FROM   (VALUES 
     (NULL)
   , ('Rene')
   , ('Vince')
@@ -174,7 +173,7 @@ WITH fnames AS (
 )
 ,    snames AS (
   SELECT sname
-  FROM (VALUES 
+  FROM   (VALUES 
     (NULL)
   , ('Gallard')
   , ('Isakowicz')
@@ -209,7 +208,7 @@ WITH fnames AS (
 )
 ,    countries AS (
   SELECT country
-  FROM (VALUES
+  FROM   (VALUES
     (NULL)
   , ('United States')
   , ('England')
@@ -223,17 +222,16 @@ WITH fnames AS (
   ) AS t (country)
 )
 INSERT INTO customers (fname, sname, country) 
-SELECT fnames.fname
-      , snames.sname
-      , countries.country
-FROM    fnames
-      , snames
-      , countries
-ORDER BY random()
-LIMIT 45;
+  SELECT fnames.fname
+        , snames.sname
+        , countries.country
+  FROM    fnames
+        , snames
+        , countries
+  ORDER BY random()
+  LIMIT 45;
 
 -- Data for orders:
--- TODO: refactor the check that there are customers without orders
 WITH customer_ids AS (
   SELECT customer_id 
   FROM   customers
@@ -260,14 +258,14 @@ WITH customer_ids AS (
         , generate_series(1, 1000)
 )
 INSERT INTO orders (order_time, status, customer_id)
-SELECT times.times
-      , status_codes.status
-      , customers.customer_id
-FROM    customers
-      , status_codes
-      , times
-ORDER BY random()
-LIMIT 450;
+  SELECT times.times
+        , status_codes.status
+        , customers.customer_id
+  FROM    customers
+        , status_codes
+        , times
+  ORDER BY random()
+  LIMIT 450;
 
 DELETE FROM orders
 WHERE customer_id = ROUND((random()::decimal + 1) * 10)::integer;
@@ -275,7 +273,7 @@ WHERE customer_id = ROUND((random()::decimal + 1) * 10)::integer;
 -- Data for artists:
 WITH artist_names AS (
   SELECT name
-  FROM (VALUES
+  FROM   (VALUES
   ('.38 Special')
 , ('10cc')
 , ('3 Doors Down')
@@ -756,7 +754,7 @@ WITH artist_names AS (
 )
 ,   bools AS (
   SELECT bool
-  FROM (VALUES
+  FROM   (VALUES
     (True)
   , (False)
   ) AS t (bool)
@@ -766,12 +764,14 @@ WITH artist_names AS (
                        , EXTRACT(YEAR FROM now())) AS founded_year
 )
 INSERT INTO artists (name, active, founded_year)
-SELECT  artist_names.name
-      , bools.bool
-	  , founded_years.founded_year
-FROM    artist_names, bools, founded_years
-ORDER BY random()
-LIMIT 10;
+  SELECT  artist_names.name
+         , bools.bool
+         , founded_years.founded_year
+  FROM    artist_names
+        , bools
+        , founded_years
+  ORDER BY random()
+  LIMIT 10;
 
 -- Data for albums:
 WITH album_names AS (
@@ -984,7 +984,7 @@ WITH album_names AS (
 )
 ,    genres AS (
   SELECT genre
-  FROM (VALUES
+  FROM   (VALUES
     (NULL)
   , ('Pop')
   , ('Rock')
@@ -997,44 +997,45 @@ WITH album_names AS (
 )
 ,    availables AS (
   SELECT bool
-  FROM (VALUES
+  FROM   (VALUES
     (True)
   , (False)
   ) AS t (bool)
 )
 ,    artist_ids AS (
-  SELECT artist_id, founded_year
+  SELECT artist_id
+        , founded_year
   FROM   artists
 )
 INSERT INTO albums (name, release_year, genre, available, artist_id)
-SELECT album_names.name
-     , release_years.release_year
-     , genres.genre
-     , availables.bool
-     , artist_ids.artist_id
-FROM album_names
-   , release_years
-   , genres
-   , availables
-   , artist_ids 
-WHERE release_years.release_year > artist_ids.founded_year
-ORDER BY random() 
-LIMIT 50;
+  SELECT album_names.name
+       , release_years.release_year
+       , genres.genre
+       , availables.bool
+       , artist_ids.artist_id
+  FROM album_names
+     , release_years
+     , genres
+     , availables
+     , artist_ids 
+  WHERE release_years.release_year > artist_ids.founded_year
+  ORDER BY random() 
+  LIMIT 50;
 
 -- Data for songs:
 WITH positions AS (
   SELECT albums.album_id
-         -- MAX songs per album:
-       , generate_series(1, ROUND(random()::decimal * 20)) AS position
-	     -- MAX length for song, MIN = 1 second
-	   , ROUND(random()::decimal * 1000, 0) AS length
+          -- MAX songs per album:
+        , generate_series(1, ROUND(random()::decimal * 20)) AS position
+	        -- MAX length for song, MIN = 1 second
+	      , ROUND(random()::decimal * 1000, 0) AS length
   FROM albums
 )
 INSERT INTO songs (album_id, position, length_sec)
-    SELECT album_id
-		 , position
-		 , length
-    FROM positions;
+  SELECT album_id
+        , position
+        , length
+  FROM positions;
 
 CREATE TABLE song_names (name TEXT);
 INSERT INTO song_names VALUES
@@ -3276,9 +3277,9 @@ CREATE FUNCTION song_name_randomizer()
   AS
   $$
     SELECT   name
-	FROM     song_names
-	ORDER BY random()
-	LIMIT    1;
+	  FROM     song_names
+	  ORDER BY random()
+	  LIMIT    1;
   $$;
   
 CREATE FUNCTION feat_artist_randomizer()
@@ -3288,9 +3289,9 @@ CREATE FUNCTION feat_artist_randomizer()
   AS
   $$
     SELECT   artist_id
-	FROM     artists
-	ORDER BY random()
-	LIMIT    1;
+	  FROM     artists
+	  ORDER BY random()
+	  LIMIT    1;
   $$;
 
 UPDATE songs
