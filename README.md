@@ -15,15 +15,15 @@ The setup with PostgreSQL creates the tables and generates the data.
 
 - If necessary, you may provide an absolute path for \i, e.g.:
 
-`=> \i \home\user\database_generate.sql`
+`=> \i /home/user/database_generate.sql`
 
-- The following command lists the names of the tables:
+- The following command lists the names of the tables once the database is generated:
 
 `=> \dt`
 
 # Setup with other RDBMSs
 
-TODO: refactor the pg_dump to DBMS agnostic statements.
+TODO: refactor the pg_dump into DBMS agnostic (or specific if impossible) statements.
 
 # Thanks
 
