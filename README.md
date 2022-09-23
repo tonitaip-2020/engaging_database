@@ -10,8 +10,8 @@ There are two alternative ways to set up the database with PostgreSQL. You can e
 
 - Install PostgreSQL. The database has been tested with PostgreSQL 14.2.
 - Download the database_generate.sql file.
-- Create a database, appropriate users and permission if necessary. Alternatively, you can just use the postgres superuser to test the database.
-- Create the database with PostgreSQL's \i command using the psql shell.
+- Create an empty database, appropriate users and permission if necessary. Alternatively, you can just use the postgres superuser to test the database.
+- Create the database with PostgreSQL's \i command using the psql shell:
 
 `=> \i database_generate.sql`
 
@@ -27,8 +27,8 @@ There are two alternative ways to set up the database with PostgreSQL. You can e
 
 - Install PostgreSQL. The database has been tested with PostgreSQL 14.2.
 - Download the database_inserts_postgresql.sql file.
-- Create a database, appropriate users and permission if necessary. Alternatively, you can just use the postgres superuser to test the database.
-- Create the database with PostgreSQL's \i command using the psql shell.
+- Create an empty database, appropriate users and permission if necessary. Alternatively, you can just use the postgres superuser to test the database.
+- Create the database with PostgreSQL's \i command using the psql shell:
 
 `=> \i database_inserts_postgresql.sql`
 
@@ -40,9 +40,19 @@ There are two alternative ways to set up the database with PostgreSQL. You can e
 
 `=> \dt`
 
-# Setup with other RDBMSs
+# Setup with MariaDB
 
-TODO: refactor the pg_dump into DBMS agnostic (or specific if impossible) statements.
+- Install PostgreSQL. The database has been tested with MariaDB 9.1.
+- Download the database_inserts_mariadb.sql file.
+- Create an empty database, appropriate users and permission if necessary.
+- Create the database with MariaDB's source command using the mysql shell and absolute path:
+
+`> source /home/user/database_inserts_mariadb.sql`
+
+- The following command lists the names of the tables once the database is created:
+
+`> SHOW TABLES;`
+
 
 # Thanks
 

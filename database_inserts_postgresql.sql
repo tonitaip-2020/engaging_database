@@ -1,3 +1,10 @@
+DROP TABLE IF EXISTS songs;
+DROP TABLE IF EXISTS albums;
+DROP TABLE IF EXISTS artists;
+DROP TABLE IF EXISTS order_lines;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS customers;
+
 CREATE TABLE albums (
     album_id integer NOT NULL,
     name character varying(255),
