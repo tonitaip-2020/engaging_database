@@ -42,7 +42,7 @@ There are two alternative ways to set up the database with PostgreSQL. You can e
 
 # Setup with MariaDB
 
-- Install PostgreSQL. The database has been tested with MariaDB 9.1.
+- Install MariaDB. The database has been tested with MariaDB 9.1.
 - Download the database_inserts_mariadb.sql file.
 - Create an empty database, appropriate users and permission if necessary.
 - Create the database with MariaDB's source command using the mysql shell and absolute path:
