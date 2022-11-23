@@ -618,7 +618,7 @@ WITH artist_names AS (
 , ('Slaughter')
 , ('Smash Mouth')
 , ('Smashing Pumpkins')
-, ('Sniff 'n' the Tears')
+, ('Sniff ''n'' the Tears')
 , ('Soft Cell')
 , ('Soundgarden')
 , ('Southside Johnny')
